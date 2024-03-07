@@ -3,35 +3,28 @@ import {Component} from 'react'
 import './index.css'
 
 class Welcome extends Component {
-  state = {isSubscribed: true}
+  state = {isSubscribed: false}
 
   onChangeBtn = () => {
-    const {isSubscribed} = this.state
+    this.setState(prevState => ({isSubscribed: !prevState.isSubscribed}))
+  }
 
-    if (isSubscribed === true) {
-      this.setState({isSubscribed: false})
-    } else {
-      this.setState({isSubscribed: true})
-    }
+  getButtonText = () => {
+    const {isSubscribed} = this.state
+    return isSubscribed ? 'Subscribed' : 'Subscribe'
   }
 
   render() {
-    const {isSubscribed} = this.state
+    const buttonText = this.getButtonText()
 
     return (
       <div className="container">
         <h1 className="heading">Welcome</h1>
         <p className="desc">Thank you! Happy Learning</p>
 
-        {isSubscribed ? (
-          <button type="button" onClick={this.onChangeBtn}>
-            Subscribe
-          </button>
-        ) : (
-          <button type="button" onClick={this.onChangeBtn}>
-            Subscribed
-          </button>
-        )}
+        <button type="button" className="button" onClick={this.onChangeBtn}>
+          {buttonText}
+        </button>
       </div>
     )
   }
